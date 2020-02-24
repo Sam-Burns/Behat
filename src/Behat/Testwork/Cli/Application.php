@@ -65,11 +65,13 @@ final class Application extends BaseApplication
      */
     public function getDefaultInputDefinition()
     {
-        return new InputDefinition(array(
+        return new InputDefinition([
             new InputOption('--profile', '-p', InputOption::VALUE_REQUIRED, 'Specify config profile to use.'),
             new InputOption('--config', '-c', InputOption::VALUE_REQUIRED, 'Specify config file to use.'),
             new InputOption(
-                '--verbose', '-v', InputOption::VALUE_OPTIONAL,
+                '--verbose',
+                '-v',
+                InputOption::VALUE_OPTIONAL,
                 'Increase verbosity of exceptions.' . PHP_EOL .
                 'Use -vv or --verbose=2 to display backtraces in addition to exceptions.'
             ),
@@ -79,12 +81,14 @@ final class Application extends BaseApplication
             new InputOption('--version', '-V', InputOption::VALUE_NONE, 'Display version.'),
             new InputOption('--no-interaction', '-n', InputOption::VALUE_NONE, 'Do not ask any interactive question.'),
             new InputOption(
-                '--colors', null, InputOption::VALUE_NONE,
+                '--colors',
+                null,
+                InputOption::VALUE_NONE,
                 'Force ANSI color in the output. By default color support is' . PHP_EOL .
                 'guessed based on your platform and the output if not specified.'
             ),
             new InputOption('--no-colors', null, InputOption::VALUE_NONE, 'Force no ANSI color in the output.'),
-        ));
+        ]);
     }
 
     /**
@@ -107,11 +111,11 @@ final class Application extends BaseApplication
             }
         }
 
-        if ($input->hasParameterOption(array('--config-reference'))) {
-            $input = new ArrayInput(array('--config-reference' => true));
+        if ($input->hasParameterOption(['--config-reference'])) {
+            $input = new ArrayInput(['--config-reference' => true]);
         }
 
-        if ($path = $input->getParameterOption(array('--config', '-c'))) {
+        if ($path = $input->getParameterOption(['--config', '-c'])) {
             if (!is_file($path)) {
                 throw new ConfigurationLoadingException("The requested config file does not exist");
             }
@@ -143,7 +147,7 @@ final class Application extends BaseApplication
      */
     private function loadConfiguration(InputInterface $input)
     {
-        $profile = $input->getParameterOption(array('--profile', '-p')) ? : 'default';
+        $profile = $input->getParameterOption(['--profile', '-p']) ? : 'default';
 
         return $this->configurationLoader->loadConfiguration($profile);
     }
@@ -212,11 +216,11 @@ final class Application extends BaseApplication
      */
     protected function getCommandName(InputInterface $input)
     {
-        if ($input->hasParameterOption(array('--config-reference'))) {
+        if ($input->hasParameterOption(['--config-reference'])) {
             return 'dump-reference';
         }
 
-        if ($input->hasParameterOption(array('--debug'))) {
+        if ($input->hasParameterOption(['--debug'])) {
             return 'debug';
         }
 
@@ -225,9 +229,9 @@ final class Application extends BaseApplication
 
     protected function configureIO(InputInterface $input, OutputInterface $output)
     {
-        if (true === $input->hasParameterOption(array('--colors'))) {
+        if (true === $input->hasParameterOption(['--colors'])) {
             $output->setDecorated(true);
-        } elseif (true === $input->hasParameterOption(array('--no-colors'))) {
+        } elseif (true === $input->hasParameterOption(['--no-colors'])) {
             $output->setDecorated(false);
         }
 

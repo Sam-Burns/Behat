@@ -29,18 +29,18 @@ final class AnnotatedContextReader implements ContextReader
     /**
      * @var string[]
      */
-    private static $ignoreAnnotations = array(
+    private static $ignoreAnnotations = [
         '@param',
         '@return',
         '@throws',
         '@see',
         '@uses',
         '@todo'
-    );
+    ];
     /**
      * @var AnnotationReader[]
      */
-    private $readers = array();
+    private $readers = [];
 
     /**
      * Registers annotation reader.
@@ -59,7 +59,7 @@ final class AnnotatedContextReader implements ContextReader
     {
         $reflection = new ReflectionClass($contextClass);
 
-        $callees = array();
+        $callees = [];
         foreach ($reflection->getMethods(ReflectionMethod::IS_PUBLIC) as $method) {
             foreach ($this->readMethodCallees($reflection->getName(), $method) as $callee) {
                 $callees[] = $callee;
@@ -79,7 +79,7 @@ final class AnnotatedContextReader implements ContextReader
      */
     private function readMethodCallees($class, ReflectionMethod $method)
     {
-        $callees = array();
+        $callees = [];
 
         // read parent annotations
         try {
@@ -109,7 +109,7 @@ final class AnnotatedContextReader implements ContextReader
      */
     private function readDocBlockCallees($class, ReflectionMethod $method, $docBlock)
     {
-        $callees = array();
+        $callees = [];
         $description = $this->readDescription($docBlock);
         $docBlock = $this->mergeMultilines($docBlock);
 

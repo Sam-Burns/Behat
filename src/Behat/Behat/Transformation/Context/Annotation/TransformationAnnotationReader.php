@@ -46,7 +46,7 @@ class TransformationAnnotationReader implements AnnotationReader
         }
 
         $pattern = $match[1];
-        $callable = array($contextClass, $method->getName());
+        $callable = [$contextClass, $method->getName()];
 
         foreach ($this->simpleTransformations() as $transformation) {
             if ($transformation::supportsPatternAndMethod($pattern, $method)) {
@@ -64,7 +64,7 @@ class TransformationAnnotationReader implements AnnotationReader
      */
     private function simpleTransformations()
     {
-        $transformations = array();
+        $transformations = [];
         $transformations[] = 'Behat\Behat\Transformation\Transformation\RowBasedTableTransformation';
         $transformations[] = 'Behat\Behat\Transformation\Transformation\ColumnBasedTableTransformation';
         $transformations[] = 'Behat\Behat\Transformation\Transformation\TableRowTransformation';

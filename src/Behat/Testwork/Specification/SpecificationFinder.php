@@ -23,7 +23,7 @@ final class SpecificationFinder
     /**
      * @var SpecificationLocator[]
      */
-    private $specificationLocators = array();
+    private $specificationLocators = [];
 
     /**
      * Registers specification locator.
@@ -42,7 +42,7 @@ final class SpecificationFinder
      */
     public function getExampleLocators()
     {
-        $examples = array();
+        $examples = [];
         foreach ($this->specificationLocators as $locator) {
             $examples = array_merge($examples, $locator->getLocatorExamples());
         }
@@ -60,7 +60,7 @@ final class SpecificationFinder
      */
     public function findSuitesSpecifications(array $suites, $locator = null)
     {
-        $iterators = array();
+        $iterators = [];
         foreach ($suites as $suite) {
             $iterators = array_merge($iterators, $this->findSuiteSpecifications($suite, $locator));
         }
@@ -78,7 +78,7 @@ final class SpecificationFinder
      */
     private function findSuiteSpecifications(Suite $suite, $locator = null)
     {
-        $iterators = array();
+        $iterators = [];
         foreach ($this->specificationLocators as $specificationLocator) {
             $iterators[] = $specificationLocator->locateSpecifications($suite, $locator);
         }

@@ -35,7 +35,7 @@ final class TokenNameTransformation extends RuntimeCallee implements SimpleArgum
     /**
      * {@inheritdoc}
      */
-    static public function supportsPatternAndMethod($pattern, ReflectionMethod $method)
+    public static function supportsPatternAndMethod($pattern, ReflectionMethod $method)
     {
         return 1 === preg_match(self::PATTERN_REGEX, $pattern);
     }
@@ -71,7 +71,7 @@ final class TokenNameTransformation extends RuntimeCallee implements SimpleArgum
             $definitionCall->getEnvironment(),
             $definitionCall->getCallee(),
             $this,
-            array($argumentValue)
+            [$argumentValue]
         );
 
         $result = $callCenter->makeCall($call);

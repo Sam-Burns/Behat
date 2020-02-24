@@ -38,7 +38,7 @@ final class InitializedContextEnvironment implements ContextEnvironment, Service
     /**
      * @var Context[]
      */
-    private $contexts = array();
+    private $contexts = [];
 
     /**
      * Initializes environment.
@@ -147,7 +147,7 @@ final class InitializedContextEnvironment implements ContextEnvironment, Service
         $callable = $callee->getCallable();
 
         if ($callee->isAnInstanceMethod()) {
-            return array($this->getContext($callable[0]), $callable[1]);
+            return [$this->getContext($callable[0]), $callable[1]];
         }
 
         return $callable;

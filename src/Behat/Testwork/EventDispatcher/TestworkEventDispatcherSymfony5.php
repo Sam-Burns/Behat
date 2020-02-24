@@ -3,7 +3,6 @@
 
 namespace Behat\Testwork\EventDispatcher;
 
-
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 /**

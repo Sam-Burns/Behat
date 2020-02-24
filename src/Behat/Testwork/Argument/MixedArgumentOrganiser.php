@@ -22,7 +22,7 @@ use ReflectionException;
  */
 final class MixedArgumentOrganiser implements ArgumentOrganiser
 {
-    private $definedArguments = array();
+    private $definedArguments = [];
 
     /**
      * Organises arguments using function reflection.
@@ -77,9 +77,9 @@ final class MixedArgumentOrganiser implements ArgumentOrganiser
             $parameters
         );
 
-        $namedArguments = array();
-        $numberedArguments = array();
-        $typehintedArguments = array();
+        $namedArguments = [];
+        $numberedArguments = [];
+        $typehintedArguments = [];
         foreach ($arguments as $key => $val) {
             if ($this->isStringKeyAndExistsInParameters($key, $parameterNames)) {
                 $namedArguments[$key] = $val;
@@ -90,7 +90,7 @@ final class MixedArgumentOrganiser implements ArgumentOrganiser
             }
         }
 
-        return array($namedArguments, $typehintedArguments, $numberedArguments);
+        return [$namedArguments, $typehintedArguments, $numberedArguments];
     }
 
     /**
@@ -154,7 +154,7 @@ final class MixedArgumentOrganiser implements ArgumentOrganiser
      */
     private function prepareNamedArguments(array $parameters, array $namedArguments)
     {
-        $arguments = array();
+        $arguments = [];
 
         foreach ($parameters as $num => $parameter) {
             $name = $parameter->getName();
@@ -189,7 +189,7 @@ final class MixedArgumentOrganiser implements ArgumentOrganiser
      */
     private function prepareTypehintedArguments(array $parameters, array $typehintedArguments)
     {
-        $arguments = array();
+        $arguments = [];
 
         $candidates = $typehintedArguments;
 
@@ -197,7 +197,7 @@ final class MixedArgumentOrganiser implements ArgumentOrganiser
             $parameters,
             $candidates,
             $arguments,
-            array($this, 'classMatchingPredicateForTypehintedArguments')
+            [$this, 'classMatchingPredicateForTypehintedArguments']
         );
 
         // This iteration maps up everything else, providing the argument is an instanceof the parameter.
@@ -205,7 +205,7 @@ final class MixedArgumentOrganiser implements ArgumentOrganiser
             $parameters,
             $candidates,
             $arguments,
-            array($this, 'isInstancePredicateForTypehintedArguments')
+            [$this, 'isInstancePredicateForTypehintedArguments']
         );
 
         return $arguments;
@@ -219,7 +219,7 @@ final class MixedArgumentOrganiser implements ArgumentOrganiser
      */
     private function filterApplicableTypehintedParameters(array $parameters)
     {
-        $filtered = array();
+        $filtered = [];
 
         foreach ($parameters as $num => $parameter) {
             if ($this->isArgumentDefined($num)) {
@@ -283,7 +283,7 @@ final class MixedArgumentOrganiser implements ArgumentOrganiser
         $predicate
     ) {
         foreach ($candidates as $candidateIndex => $candidate) {
-            if (call_user_func_array($predicate, array($parameter->getClass(), $candidate))) {
+            if (call_user_func_array($predicate, [$parameter->getClass(), $candidate])) {
                 $num = $parameter->getPosition();
 
                 $arguments[$num] = $candidate;
@@ -333,7 +333,7 @@ final class MixedArgumentOrganiser implements ArgumentOrganiser
      */
     private function prepareNumberedArguments(array $parameters, array $numberedArguments)
     {
-        $arguments = array();
+        $arguments = [];
 
         $increment = 0;
         foreach ($parameters as $num => $parameter) {
@@ -359,7 +359,7 @@ final class MixedArgumentOrganiser implements ArgumentOrganiser
      */
     private function prepareDefaultArguments(array $parameters)
     {
-        $arguments = array();
+        $arguments = [];
 
         foreach ($parameters as $num => $parameter) {
             if ($this->isArgumentDefined($num)) {
@@ -385,7 +385,7 @@ final class MixedArgumentOrganiser implements ArgumentOrganiser
      */
     private function reorderArguments(array $parameters, array $arguments)
     {
-        $orderedArguments = array();
+        $orderedArguments = [];
 
         foreach ($parameters as $num => $parameter) {
             $name = $parameter->getName();
@@ -407,7 +407,7 @@ final class MixedArgumentOrganiser implements ArgumentOrganiser
      */
     private function markAllArgumentsUndefined()
     {
-        $this->definedArguments = array();
+        $this->definedArguments = [];
     }
 
     /**

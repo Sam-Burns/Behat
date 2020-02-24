@@ -30,7 +30,7 @@ final class AmbiguousMatchException extends RuntimeException implements SearchEx
     /**
      * @var Definition[]
      */
-    private $matches = array();
+    private $matches = [];
 
     /**
      * Initializes ambiguous exception.

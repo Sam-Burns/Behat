@@ -51,17 +51,23 @@ final class FilterController implements Controller
     {
         $command
             ->addOption(
-                '--name', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
+                '--name',
+                null,
+                InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
                 "Only executeCall the feature elements which match part" . PHP_EOL .
                 "of the given name or regex."
             )
             ->addOption(
-                '--tags', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
+                '--tags',
+                null,
+                InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
                 "Only executeCall the features or scenarios with tags" . PHP_EOL .
                 "matching tag filter expression."
             )
             ->addOption(
-                '--role', null, InputOption::VALUE_REQUIRED,
+                '--role',
+                null,
+                InputOption::VALUE_REQUIRED,
                 "Only executeCall the features with actor role matching" . PHP_EOL .
                 "a wildcard."
             );
@@ -77,7 +83,7 @@ final class FilterController implements Controller
      */
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $filters = array();
+        $filters = [];
 
         foreach ($input->getOption('name') as $name) {
             $filters[] = new NameFilter($name);

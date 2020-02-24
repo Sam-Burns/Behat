@@ -67,11 +67,11 @@ final class OutlineTableListener implements EventListener
     /**
      * @var AfterStepSetup[]
      */
-    private $stepBeforeTestedEvents = array();
+    private $stepBeforeTestedEvents = [];
     /**
      * @var AfterStepTested[]
      */
-    private $stepAfterTestedEvents = array();
+    private $stepAfterTestedEvents = [];
 
     /**
      * Initializes listener.
@@ -224,8 +224,8 @@ final class OutlineTableListener implements EventListener
         $this->exampleSetupPrinter->printTeardown($formatter, $event->getTeardown());
 
         $this->exampleSetup = null;
-        $this->stepBeforeTestedEvents = array();
-        $this->stepAfterTestedEvents = array();
+        $this->stepBeforeTestedEvents = [];
+        $this->stepAfterTestedEvents = [];
     }
 
     /**

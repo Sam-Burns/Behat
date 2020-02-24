@@ -32,7 +32,7 @@ final class ReturnTypeTransformation extends RuntimeCallee implements SimpleArgu
     /**
      * {@inheritdoc}
      */
-    static public function supportsPatternAndMethod($pattern, ReflectionMethod $method)
+    public static function supportsPatternAndMethod($pattern, ReflectionMethod $method)
     {
         $returnClass = self::getReturnClass($method);
 
@@ -80,7 +80,7 @@ final class ReturnTypeTransformation extends RuntimeCallee implements SimpleArgu
             $definitionCall->getEnvironment(),
             $definitionCall->getCallee(),
             $this,
-            array($argumentValue)
+            [$argumentValue]
         );
 
         $result = $callCenter->makeCall($call);
@@ -123,7 +123,7 @@ final class ReturnTypeTransformation extends RuntimeCallee implements SimpleArgu
      *
      * @return null|string
      */
-    static private function getReturnClass(ReflectionFunctionAbstract $reflection)
+    private static function getReturnClass(ReflectionFunctionAbstract $reflection)
     {
         $type = $reflection->getReturnType();
 
@@ -149,7 +149,8 @@ final class ReturnTypeTransformation extends RuntimeCallee implements SimpleArgu
     private function getParameterClassNameByIndex(DefinitionCall $definitionCall, $argumentIndex)
     {
         $parameters = array_filter(
-            array_filter($this->getCallParameters($definitionCall),
+            array_filter(
+                $this->getCallParameters($definitionCall),
                 $this->hasIndex($argumentIndex)
             ),
             $this->isClass()

@@ -122,8 +122,8 @@ final class CallExtension implements Extension
      */
     protected function loadCallHandlers(ContainerBuilder $container, $errorReporting)
     {
-        $definition = new Definition('Behat\Testwork\Call\Handler\RuntimeCallHandler', array($errorReporting));
-        $definition->addTag(self::CALL_HANDLER_TAG, array('priority' => 50));
+        $definition = new Definition('Behat\Testwork\Call\Handler\RuntimeCallHandler', [$errorReporting]);
+        $definition->addTag(self::CALL_HANDLER_TAG, ['priority' => 50]);
         $container->setDefinition(self::CALL_HANDLER_TAG . '.runtime', $definition);
     }
 
@@ -138,7 +138,7 @@ final class CallExtension implements Extension
         $definition = $container->getDefinition(CallExtension::CALL_CENTER_ID);
 
         foreach ($references as $reference) {
-            $definition->addMethodCall('registerCallFilter', array($reference));
+            $definition->addMethodCall('registerCallFilter', [$reference]);
         }
     }
 
@@ -153,7 +153,7 @@ final class CallExtension implements Extension
         $definition = $container->getDefinition(CallExtension::CALL_CENTER_ID);
 
         foreach ($references as $reference) {
-            $definition->addMethodCall('registerCallHandler', array($reference));
+            $definition->addMethodCall('registerCallHandler', [$reference]);
         }
     }
 
@@ -168,7 +168,7 @@ final class CallExtension implements Extension
         $definition = $container->getDefinition(CallExtension::CALL_CENTER_ID);
 
         foreach ($references as $reference) {
-            $definition->addMethodCall('registerResultFilter', array($reference));
+            $definition->addMethodCall('registerResultFilter', [$reference]);
         }
     }
 
@@ -183,7 +183,7 @@ final class CallExtension implements Extension
         $definition = $container->getDefinition(CallExtension::CALL_CENTER_ID);
 
         foreach ($references as $reference) {
-            $definition->addMethodCall('registerExceptionHandler', array($reference));
+            $definition->addMethodCall('registerExceptionHandler', [$reference]);
         }
     }
 }

@@ -56,7 +56,7 @@ final class JUnitOutputPrinter extends StreamOutputPrinter
      * @param string $name                 The filename (without extension) and default value of the name attribute
      * @param array  $testsuitesAttributes Attributes for the root element
      */
-    public function createNewFile($name, array $testsuitesAttributes = array())
+    public function createNewFile($name, array $testsuitesAttributes = [])
     {
         // This requires the DOM extension to be enabled.
         if (!extension_loaded('dom')) {
@@ -69,7 +69,7 @@ final class JUnitOutputPrinter extends StreamOutputPrinter
 
         $this->testSuites = $this->domDocument->createElement('testsuites');
         $this->domDocument->appendChild($this->testSuites);
-        $this->addAttributesToNode($this->testSuites, array_merge(array('name' => $name), $testsuitesAttributes));
+        $this->addAttributesToNode($this->testSuites, array_merge(['name' => $name], $testsuitesAttributes));
         $this->flush();
     }
 
@@ -78,7 +78,7 @@ final class JUnitOutputPrinter extends StreamOutputPrinter
      *
      * @param array $testsuiteAttributes
      */
-    public function addTestsuite(array $testsuiteAttributes = array())
+    public function addTestsuite(array $testsuiteAttributes = [])
     {
         $this->currentTestsuite = $this->domDocument->createElement('testsuite');
         $this->testSuites->appendChild($this->currentTestsuite);
@@ -91,7 +91,7 @@ final class JUnitOutputPrinter extends StreamOutputPrinter
      *
      * @param array $testcaseAttributes
      */
-    public function addTestcase(array $testcaseAttributes = array())
+    public function addTestcase(array $testcaseAttributes = [])
     {
         $this->currentTestcase = $this->domDocument->createElement('testcase');
         $this->currentTestsuite->appendChild($this->currentTestcase);
@@ -105,7 +105,7 @@ final class JUnitOutputPrinter extends StreamOutputPrinter
      * @param array  $nodeAttributes
      * @param string $nodeValue
      */
-    public function addTestcaseChild($nodeName, array $nodeAttributes = array(), $nodeValue = null)
+    public function addTestcaseChild($nodeName, array $nodeAttributes = [], $nodeValue = null)
     {
         $childNode = $this->domDocument->createElement($nodeName, $nodeValue);
         $this->currentTestcase->appendChild($childNode);
@@ -114,7 +114,7 @@ final class JUnitOutputPrinter extends StreamOutputPrinter
 
     private function addAttributesToNode(\DOMElement $node, array $attributes)
     {
-        foreach ($attributes as $name => $value){
+        foreach ($attributes as $name => $value) {
             $node->setAttribute($name, $value);
         }
     }
@@ -140,7 +140,7 @@ final class JUnitOutputPrinter extends StreamOutputPrinter
      */
     public function flush()
     {
-        if($this->domDocument instanceof \DOMDocument){
+        if ($this->domDocument instanceof \DOMDocument) {
             $this->getWritingStream()->write(
                 $this->domDocument->saveXML(null, LIBXML_NOEMPTYTAG),
                 false,

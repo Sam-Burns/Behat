@@ -19,7 +19,7 @@ use ErrorException;
  */
 final class CallErrorException extends ErrorException
 {
-    private $levels = array(
+    private $levels = [
         E_WARNING           => 'Warning',
         E_NOTICE            => 'Notice',
         E_USER_ERROR        => 'User Error',
@@ -27,7 +27,7 @@ final class CallErrorException extends ErrorException
         E_USER_NOTICE       => 'User Notice',
         E_STRICT            => 'Runtime Notice',
         E_RECOVERABLE_ERROR => 'Catchable Fatal Error',
-    );
+    ];
 
     /**
      * Initializes error handler exception.

@@ -76,11 +76,11 @@ final class JUnitScenarioPrinter
         /** @var JUnitOutputPrinter $outputPrinter */
         $outputPrinter = $formatter->getOutputPrinter();
 
-        $outputPrinter->addTestcase(array(
+        $outputPrinter->addTestcase([
             'name' => $name,
             'status' => $this->resultConverter->convertResultToString($result),
             'time' => $this->durationListener ? $this->durationListener->getDuration($scenario) : ''
-        ));
+        ]);
     }
 
     /**

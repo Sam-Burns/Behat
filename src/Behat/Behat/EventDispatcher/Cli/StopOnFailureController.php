@@ -63,7 +63,10 @@ final class StopOnFailureController implements Controller
      */
     public function configure(Command $command)
     {
-        $command->addOption('--stop-on-failure', null, InputOption::VALUE_NONE,
+        $command->addOption(
+            '--stop-on-failure',
+            null,
+            InputOption::VALUE_NONE,
             'Stop processing on first failed scenario.'
         );
     }
@@ -86,8 +89,8 @@ final class StopOnFailureController implements Controller
             $this->resultInterpretation = new StrictInterpretation();
         }
 
-        $this->eventDispatcher->addListener(ScenarioTested::AFTER, array($this, 'exitOnFailure'), -100);
-        $this->eventDispatcher->addListener(ExampleTested::AFTER, array($this, 'exitOnFailure'), -100);
+        $this->eventDispatcher->addListener(ScenarioTested::AFTER, [$this, 'exitOnFailure'], -100);
+        $this->eventDispatcher->addListener(ExampleTested::AFTER, [$this, 'exitOnFailure'], -100);
     }
 
     /**

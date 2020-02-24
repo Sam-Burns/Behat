@@ -75,7 +75,7 @@ final class RuntimeFeatureTester implements SpecificationTester
      */
     public function test(Environment $env, $feature, $skip = false)
     {
-        $results = array();
+        $results = [];
         foreach ($feature->getScenarios() as $scenario) {
             $tester = $scenario instanceof OutlineNode ? $this->outlineTester : $this->scenarioTester;
 

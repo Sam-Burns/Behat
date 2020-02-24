@@ -134,7 +134,8 @@ final class ServicesResolver implements CallFilter
             sprintf(
                 'ServicesResolver can not filter `%s` call.',
                 get_class($call)
-            ), $call
+            ),
+            $call
         );
     }
 
@@ -157,7 +158,8 @@ final class ServicesResolver implements CallFilter
                 sprintf(
                     'Something is wrong in callee associated with `%s` call.',
                     get_class($call)
-                ), $call
+                ),
+                $call
             );
         }
 
@@ -190,7 +192,8 @@ final class ServicesResolver implements CallFilter
                 sprintf(
                     'Something is wrong in callee associated with `%s` call.',
                     get_class($call)
-                ), $call
+                ),
+                $call
             );
         }
 

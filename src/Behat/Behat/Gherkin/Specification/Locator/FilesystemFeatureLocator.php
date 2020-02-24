@@ -54,13 +54,13 @@ final class FilesystemFeatureLocator implements SpecificationLocator
      */
     public function getLocatorExamples()
     {
-        return array(
+        return [
             "a dir <comment>(features/)</comment>",
             "a feature <comment>(*.feature)</comment>",
             "a scenario at specific line <comment>(*.feature:10)</comment>.",
             "all scenarios at or after a specific line <comment>(*.feature:10-*)</comment>.",
             "all scenarios at a line within a specific range <comment>(*.feature:10-20)</comment>."
-        );
+        ];
     }
 
     /**
@@ -75,12 +75,12 @@ final class FilesystemFeatureLocator implements SpecificationLocator
         $suiteLocators = $this->getSuitePaths($suite);
 
         if ($locator) {
-            $filters = array(new PathsFilter($suiteLocators));
+            $filters = [new PathsFilter($suiteLocators)];
 
             return new LazyFeatureIterator($suite, $this->gherkin, $this->findFeatureFiles($locator), $filters);
         }
 
-        $featurePaths = array();
+        $featurePaths = [];
         foreach ($suiteLocators as $suiteLocator) {
             $featurePaths = array_merge($featurePaths, $this->findFeatureFiles($suiteLocator));
         }
@@ -101,7 +101,8 @@ final class FilesystemFeatureLocator implements SpecificationLocator
     {
         if (!is_array($suite->getSetting('paths'))) {
             throw new SuiteConfigurationException(
-                sprintf('`paths` setting of the "%s" suite is expected to be an array, %s given.',
+                sprintf(
+                    '`paths` setting of the "%s" suite is expected to be an array, %s given.',
                     $suite->getName(),
                     gettype($suite->getSetting('paths'))
                 ),
@@ -124,11 +125,11 @@ final class FilesystemFeatureLocator implements SpecificationLocator
         $absolutePath = $this->findAbsolutePath($path);
 
         if (!$absolutePath) {
-            return array($path);
+            return [$path];
         }
 
         if (is_file($absolutePath)) {
-            return array($absolutePath);
+            return [$absolutePath];
         }
 
         $iterator = new RegexIterator(

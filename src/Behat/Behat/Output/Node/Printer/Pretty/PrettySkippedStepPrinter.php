@@ -100,7 +100,9 @@ final class PrettySkippedStepPrinter implements StepPrinter
         if ($result instanceof DefinedStepResult && $result->getStepDefinition()) {
             $definition = $result->getStepDefinition();
             $stepText = $this->textPainter->paintText(
-                $stepText, $definition, new IntegerTestResult(TestResult::SKIPPED)
+                $stepText,
+                $definition,
+                new IntegerTestResult(TestResult::SKIPPED)
             );
         }
 
@@ -120,7 +122,7 @@ final class PrettySkippedStepPrinter implements StepPrinter
         foreach ($arguments as $argument) {
             $text = $this->getArgumentString($argument, !$formatter->getParameter('multiline'));
 
-            $indentedText = implode("\n", array_map(array($this, 'subIndent'), explode("\n", $text)));
+            $indentedText = implode("\n", array_map([$this, 'subIndent'], explode("\n", $text)));
             $formatter->getOutputPrinter()->writeln(sprintf('{+%s}%s{-%s}', $style, $indentedText, $style));
         }
     }
