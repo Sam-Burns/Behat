@@ -15,10 +15,10 @@ use Behat\Testwork\Output\Node\EventListener\EventListener;
 
 final class JUnitDurationListener implements EventListener
 {
-    private $scenarioTimerStore = array();
-    private $featureTimerStore = array();
-    private $resultStore = array();
-    private $featureResultStore = array();
+    private $scenarioTimerStore = [];
+    private $featureTimerStore = [];
+    private $resultStore = [];
+    private $featureResultStore = [];
 
     /** @inheritdoc */
     public function listenEvent(Formatter $formatter, Event $event, $eventName)

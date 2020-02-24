@@ -57,15 +57,15 @@ final class JUnitFeatureElementListener implements EventListener
     /**
      * @var AfterScenarioTested[]
      */
-    private $afterScenarioTestedEvents = array();
+    private $afterScenarioTestedEvents = [];
     /**
      * @var AfterStepTested[]
      */
-    private $afterStepTestedEvents = array();
+    private $afterStepTestedEvents = [];
     /**
      * @var AfterSetup[]
      */
-    private $afterStepSetupEvents = array();
+    private $afterStepSetupEvents = [];
 
     /**
      * Initializes listener.
@@ -75,10 +75,12 @@ final class JUnitFeatureElementListener implements EventListener
      * @param StepPrinter $stepPrinter
      * @param SetupPrinter $setupPrinter
      */
-    public function __construct(FeaturePrinter $featurePrinter,
-                                JUnitScenarioPrinter $scenarioPrinter,
-                                StepPrinter $stepPrinter,
-                                SetupPrinter $setupPrinter)
+    public function __construct(
+        FeaturePrinter $featurePrinter,
+        JUnitScenarioPrinter $scenarioPrinter,
+        StepPrinter $stepPrinter,
+        SetupPrinter $setupPrinter
+    )
     {
         $this->featurePrinter = $featurePrinter;
         $this->scenarioPrinter = $scenarioPrinter;
@@ -113,14 +115,14 @@ final class JUnitFeatureElementListener implements EventListener
     private function captureScenarioEvent(ScenarioTested $event)
     {
         if ($event instanceof AfterScenarioTested) {
-            $this->afterScenarioTestedEvents[$event->getScenario()->getLine()] = array(
+            $this->afterScenarioTestedEvents[$event->getScenario()->getLine()] = [
                 'event'             => $event,
                 'step_events'       => $this->afterStepTestedEvents,
                 'step_setup_events' => $this->afterStepSetupEvents,
-            );
+            ];
 
-            $this->afterStepTestedEvents = array();
-            $this->afterStepSetupEvents = array();
+            $this->afterStepTestedEvents = [];
+            $this->afterStepSetupEvents = [];
         }
     }
 
@@ -182,6 +184,6 @@ final class JUnitFeatureElementListener implements EventListener
         }
 
         $this->featurePrinter->printFooter($formatter, $event->getTestResult());
-        $this->afterScenarioTestedEvents = array();
+        $this->afterScenarioTestedEvents = [];
     }
 }

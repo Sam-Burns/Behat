@@ -74,13 +74,12 @@ class JUnitSetupPrinter implements SetupPrinter
                 }
                 $message .= $this->exceptionPresenter->presentException($hookCallResult->getException());
 
-                $attributes = array(
+                $attributes = [
                     'message' => $message,
                     'type'    => $messageType,
-                );
+                ];
 
                 $outputPrinter->addTestcaseChild('failure', $attributes);
-
             }
         }
     }

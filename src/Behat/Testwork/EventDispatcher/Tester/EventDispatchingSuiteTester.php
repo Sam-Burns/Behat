@@ -90,7 +90,7 @@ final class EventDispatchingSuiteTester implements SuiteTester
     {
         $event = new BeforeSuiteTeardown($env, $iterator, $result);
         if (TestworkEventDispatcher::DISPATCHER_VERSION === 2) {
-            $this->eventDispatcher->dispatch( $event, $event::BEFORE_TEARDOWN);
+            $this->eventDispatcher->dispatch($event, $event::BEFORE_TEARDOWN);
         } else {
             $this->eventDispatcher->dispatch($event::BEFORE_TEARDOWN, $event);
         }
@@ -100,7 +100,7 @@ final class EventDispatchingSuiteTester implements SuiteTester
         $event = new AfterSuiteTested($env, $iterator, $result, $teardown);
 
         if (TestworkEventDispatcher::DISPATCHER_VERSION === 2) {
-            $this->eventDispatcher->dispatch( $event, $event::AFTER);
+            $this->eventDispatcher->dispatch($event, $event::AFTER);
         } else {
             $this->eventDispatcher->dispatch($event::AFTER, $event);
         }

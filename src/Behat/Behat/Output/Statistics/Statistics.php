@@ -13,7 +13,6 @@ namespace Behat\Behat\Output\Statistics;
 use Behat\Testwork\Counter\Memory;
 use Behat\Testwork\Counter\Timer;
 
-
 /**
  * Collects and provided exercise statistics.
  *

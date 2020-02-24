@@ -39,11 +39,11 @@ final class LazyFeatureIterator implements SpecificationIterator
     /**
      * @var string[]
      */
-    private $paths = array();
+    private $paths = [];
     /**
      * @var FilterInterface[]
      */
-    private $filters = array();
+    private $filters = [];
     /**
      * @var integer
      */
@@ -51,7 +51,7 @@ final class LazyFeatureIterator implements SpecificationIterator
     /**
      * @var FeatureNode[]
      */
-    private $features = array();
+    private $features = [];
     /**
      * @var FeatureNode
      */
@@ -65,7 +65,7 @@ final class LazyFeatureIterator implements SpecificationIterator
      * @param string[]          $paths
      * @param FilterInterface[] $filters
      */
-    public function __construct(Suite $suite, Gherkin $gherkin, array $paths, array $filters = array())
+    public function __construct(Suite $suite, Gherkin $gherkin, array $paths, array $filters = [])
     {
         $this->suite = $suite;
         $this->gherkin = $gherkin;
@@ -132,10 +132,10 @@ final class LazyFeatureIterator implements SpecificationIterator
     private function getSuiteFilters(Suite $suite)
     {
         if (!$suite->hasSetting('filters') || !is_array($suite->getSetting('filters'))) {
-            return array();
+            return [];
         }
 
-        $filters = array();
+        $filters = [];
         foreach ($suite->getSetting('filters') as $type => $filterString) {
             $filters[] = $this->createFilter($type, $filterString, $suite);
         }
@@ -176,7 +176,7 @@ final class LazyFeatureIterator implements SpecificationIterator
             '`%s` filter is not supported by the `%s` suite. Supported types are `%s`.',
             $type,
             $suite->getName(),
-            implode('`, `', array('role', 'name', 'tags'))
+            implode('`, `', ['role', 'name', 'tags'])
         ), $suite->getName());
     }
 

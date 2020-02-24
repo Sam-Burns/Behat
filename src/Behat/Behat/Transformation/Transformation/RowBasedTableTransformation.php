@@ -36,7 +36,7 @@ final class RowBasedTableTransformation extends RuntimeCallee implements SimpleA
     /**
      * {@inheritdoc}
      */
-    static public function supportsPatternAndMethod($pattern, ReflectionMethod $method)
+    public static function supportsPatternAndMethod($pattern, ReflectionMethod $method)
     {
         return 1 === preg_match(self::PATTERN_REGEX, $pattern);
     }
@@ -92,7 +92,7 @@ final class RowBasedTableTransformation extends RuntimeCallee implements SimpleA
             $definitionCall->getEnvironment(),
             $definitionCall->getCallee(),
             $this,
-            array($argumentValue)
+            [$argumentValue]
         );
 
         $result = $callCenter->makeCall($call);

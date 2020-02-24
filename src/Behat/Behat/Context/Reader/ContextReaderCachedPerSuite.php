@@ -26,7 +26,7 @@ final class ContextReaderCachedPerSuite implements ContextReader
     /**
      * @var array[]
      */
-    private $cachedCallees = array();
+    private $cachedCallees = [];
 
     /**
      * Initializes reader.
@@ -50,7 +50,8 @@ final class ContextReaderCachedPerSuite implements ContextReader
         }
 
         return $this->cachedCallees[$key] = $this->childReader->readContextCallees(
-            $environment, $contextClass
+            $environment,
+            $contextClass
         );
     }
 

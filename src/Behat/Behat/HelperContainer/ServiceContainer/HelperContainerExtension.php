@@ -77,14 +77,14 @@ final class HelperContainerExtension implements Extension
      */
     public function load(ContainerBuilder $container, array $config)
     {
-        $definition = new Definition('Behat\Behat\HelperContainer\Argument\ServicesResolverFactory', array(
+        $definition = new Definition('Behat\Behat\HelperContainer\Argument\ServicesResolverFactory', [
             new Reference('service_container')
-        ));
-        $definition->addTag(ContextExtension::SUITE_SCOPED_RESOLVER_FACTORY_TAG, array('priority' => 0));
+        ]);
+        $definition->addTag(ContextExtension::SUITE_SCOPED_RESOLVER_FACTORY_TAG, ['priority' => 0]);
         $container->setDefinition(ContextExtension::SUITE_SCOPED_RESOLVER_FACTORY_TAG . '.helper_container', $definition);
 
         $definition = new Definition('Behat\Behat\HelperContainer\Call\Filter\ServicesResolver');
-        $definition->addTag(CallExtension::CALL_FILTER_TAG, array('priority' => 0));
+        $definition->addTag(CallExtension::CALL_FILTER_TAG, ['priority' => 0]);
         $container->setDefinition(CallExtension::CALL_FILTER_TAG . '.helper_container', $definition);
     }
 
@@ -98,7 +98,8 @@ final class HelperContainerExtension implements Extension
         foreach ($references as $reference) {
             if ($this->isDefinitionShared($container->getDefinition((string) $reference))) {
                 throw new WrongServicesConfigurationException(sprintf(
-                    'Container services must not be configured as shared, but `@%s` is.', $reference
+                    'Container services must not be configured as shared, but `@%s` is.',
+                    $reference
                 ));
             }
         }
@@ -117,7 +118,7 @@ final class HelperContainerExtension implements Extension
     {
         if (method_exists($definition, 'isShared')) {
             return $definition->isShared();
-        } else if (method_exists($definition, 'getScope')) {
+        } elseif (method_exists($definition, 'getScope')) {
             return $definition->getScope() !== ContainerBuilder::SCOPE_PROTOTYPE;
         }
 

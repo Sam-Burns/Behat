@@ -59,11 +59,15 @@ final class ContextSnippetsController implements Controller
     {
         $command
             ->addOption(
-                '--snippets-for', null, InputOption::VALUE_OPTIONAL,
+                '--snippets-for',
+                null,
+                InputOption::VALUE_OPTIONAL,
                 "Specifies which context class to generate snippets for."
             )
             ->addOption(
-                '--snippets-type', null, InputOption::VALUE_REQUIRED,
+                '--snippets-type',
+                null,
+                InputOption::VALUE_REQUIRED,
                 "Specifies which type of snippets (turnip, regex) to generate."
             );
     }
@@ -74,18 +78,18 @@ final class ContextSnippetsController implements Controller
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $this->generator->setContextIdentifier(
-            new AggregateContextIdentifier(array(
+            new AggregateContextIdentifier([
                 new ContextInterfaceBasedContextIdentifier(),
                 new FixedContextIdentifier($input->getOption('snippets-for')),
                 new InteractiveContextIdentifier($this->translator, $input, $output)
-            ))
+            ])
         );
 
         $this->generator->setPatternIdentifier(
-            new AggregatePatternIdentifier(array(
+            new AggregatePatternIdentifier([
                 new ContextInterfaceBasedPatternIdentifier(),
                 new FixedPatternIdentifier($input->getOption('snippets-type'))
-            ))
+            ])
         );
     }
 }

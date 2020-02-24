@@ -45,7 +45,7 @@ class ConsoleSnippetPrinter implements SnippetPrinter
         $this->output = $output;
         $this->translator = $translator;
 
-        $output->getFormatter()->setStyle('snippet_keyword', new OutputFormatterStyle(null, null, array('bold')));
+        $output->getFormatter()->setStyle('snippet_keyword', new OutputFormatterStyle(null, null, ['bold']));
         $output->getFormatter()->setStyle('snippet_undefined', new OutputFormatterStyle('yellow'));
     }
 
@@ -57,7 +57,7 @@ class ConsoleSnippetPrinter implements SnippetPrinter
      */
     public function printSnippets($targetName, array $snippets)
     {
-        $message = $this->translator->trans('snippet_proposal_title', array('%count%' => $targetName), 'output');
+        $message = $this->translator->trans('snippet_proposal_title', ['%count%' => $targetName], 'output');
 
         $this->output->writeln('--- ' . $message . PHP_EOL);
 
@@ -74,7 +74,7 @@ class ConsoleSnippetPrinter implements SnippetPrinter
      */
     public function printUndefinedSteps($suiteName, array $steps)
     {
-        $message = $this->translator->trans('snippet_missing_title', array('%count%' => $suiteName), 'output');
+        $message = $this->translator->trans('snippet_missing_title', ['%count%' => $suiteName], 'output');
 
         $this->output->writeln('--- ' . $message . PHP_EOL);
 

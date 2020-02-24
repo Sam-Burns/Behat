@@ -45,7 +45,7 @@ final class ContextSnippet implements Snippet
      * @param string   $contextClass
      * @param string[] $usedClasses
      */
-    public function __construct(StepNode $step, $template, $contextClass, array $usedClasses = array())
+    public function __construct(StepNode $step, $template, $contextClass, array $usedClasses = [])
     {
         $this->step = $step;
         $this->template = $template;

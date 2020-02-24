@@ -31,7 +31,7 @@ final class ContextSnippetGenerator implements SnippetGenerator
     /**
      * @var string[string]
      */
-    private static $proposedMethods = array();
+    private static $proposedMethods = [];
     /**
      * @var string
      */
@@ -159,7 +159,7 @@ TPL;
      */
     private function getMethodArguments(StepNode $step, $tokenCount)
     {
-        $args = array();
+        $args = [];
         for ($i = 0; $i < $tokenCount; $i++) {
             $args[] = '$arg' . ($i + 1);
         }
@@ -180,7 +180,7 @@ TPL;
      */
     private function getUsedClasses(StepNode $step)
     {
-        $usedClasses = array('Behat\Behat\Tester\Exception\PendingException');
+        $usedClasses = ['Behat\Behat\Tester\Exception\PendingException'];
 
         foreach ($step->getArguments() as $argument) {
             if ($argument instanceof TableNode) {
@@ -284,7 +284,7 @@ TPL;
             $methodName .= $methodNumber++;
         }
 
-        return array($methodName, $methodNumber);
+        return [$methodName, $methodNumber];
     }
 
     /**
@@ -324,7 +324,7 @@ TPL;
      */
     private function getAlreadyProposedMethods($contextClass)
     {
-        return isset(self::$proposedMethods[$contextClass]) ? self::$proposedMethods[$contextClass] : array();
+        return isset(self::$proposedMethods[$contextClass]) ? self::$proposedMethods[$contextClass] : [];
     }
 
     /**

@@ -100,11 +100,11 @@ final class BuiltInServiceContainer implements ContainerInterface
         $schema = $this->schema[$id];
 
         if (null === $schema) {
-            $schema = array('class' => $id);
+            $schema = ['class' => $id];
         }
 
         if (is_string($schema)) {
-            $schema = array('class' => $schema);
+            $schema = ['class' => $schema];
         }
 
         $schema['class'] = $this->getAndValidateClass($id, $schema);
@@ -139,7 +139,7 @@ final class BuiltInServiceContainer implements ContainerInterface
      */
     private function getAndValidateArguments(array $schema)
     {
-        return isset($schema['arguments']) ? (array)$schema['arguments'] : array();
+        return isset($schema['arguments']) ? (array)$schema['arguments'] : [];
     }
 
     /**

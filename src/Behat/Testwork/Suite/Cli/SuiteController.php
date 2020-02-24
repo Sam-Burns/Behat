@@ -32,7 +32,7 @@ final class SuiteController implements Controller
     /**
      * @var array
      */
-    private $suiteConfigurations = array();
+    private $suiteConfigurations = [];
 
     /**
      * Initializes controller.
@@ -51,7 +51,10 @@ final class SuiteController implements Controller
      */
     public function configure(Command $command)
     {
-        $command->addOption('--suite', '-s', InputOption::VALUE_REQUIRED,
+        $command->addOption(
+            '--suite',
+            '-s',
+            InputOption::VALUE_REQUIRED,
             'Only execute a specific suite.'
         );
     }
@@ -76,7 +79,9 @@ final class SuiteController implements Controller
             }
 
             $this->registry->registerSuiteConfiguration(
-                $name, $config['type'], $config['settings']
+                $name,
+                $config['type'],
+                $config['settings']
             );
         }
     }

@@ -92,7 +92,7 @@ final class EventDispatchingOutlineTester implements OutlineTester
         $event = new BeforeOutlineTeardown($env, $feature, $outline, $result);
 
         if (TestworkEventDispatcher::DISPATCHER_VERSION === 2) {
-            $this->eventDispatcher->dispatch( $event,$event::BEFORE_TEARDOWN);
+            $this->eventDispatcher->dispatch($event, $event::BEFORE_TEARDOWN);
         } else {
             $this->eventDispatcher->dispatch($event::BEFORE_TEARDOWN, $event);
         }

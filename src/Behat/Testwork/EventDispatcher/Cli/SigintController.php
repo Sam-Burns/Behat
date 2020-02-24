@@ -55,7 +55,7 @@ final class SigintController implements Controller
     {
         if (function_exists('pcntl_signal')) {
             declare(ticks = 1);
-            pcntl_signal(SIGINT, array($this, 'abortExercise'));
+            pcntl_signal(SIGINT, [$this, 'abortExercise']);
         }
     }
 

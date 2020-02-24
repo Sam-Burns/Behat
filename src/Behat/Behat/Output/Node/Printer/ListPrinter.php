@@ -79,7 +79,7 @@ final class ListPrinter
         }
 
         $style = $this->resultConverter->convertResultCodeToString($resultCode);
-        $intro = $this->translator->trans($intro, array(), 'output');
+        $intro = $this->translator->trans($intro, [], 'output');
 
         $printer->writeln(sprintf('--- {+%s}%s{-%s}' . PHP_EOL, $style, $intro, $style));
         foreach ($scenarioStats as $stat) {
@@ -105,7 +105,7 @@ final class ListPrinter
         }
 
         $style = $this->resultConverter->convertResultCodeToString($resultCode);
-        $intro = $this->translator->trans($intro, array(), 'output');
+        $intro = $this->translator->trans($intro, [], 'output');
 
         $printer->writeln(sprintf('--- {+%s}%s{-%s}' . PHP_EOL, $style, $intro, $style));
 
@@ -132,7 +132,7 @@ final class ListPrinter
         }
 
         $style = $this->resultConverter->convertResultCodeToString(TestResult::FAILED);
-        $intro = $this->translator->trans($intro, array(), 'output');
+        $intro = $this->translator->trans($intro, [], 'output');
 
         $printer->writeln(sprintf('--- {+%s}%s{-%s}' . PHP_EOL, $style, $intro, $style));
         foreach ($failedHookStats as $hookStat) {
@@ -157,10 +157,14 @@ final class ListPrinter
         $path = $this->relativizePaths($path);
         $printer->writeln(sprintf('    {+%s}%s{-%s} {+comment}# %s{-comment}', $style, $name, $style, $path));
 
-        $pad = function ($line) { return '      ' . $line; };
+        $pad = function ($line) {
+            return '      ' . $line;
+        };
 
         if (null !== $stdOut) {
-            $padText = function ($line) { return '      │ ' . $line; };
+            $padText = function ($line) {
+                return '      │ ' . $line;
+            };
             $stdOutString = array_map($padText, explode("\n", $stdOut));
             $printer->writeln(implode("\n", $stdOutString));
         }
@@ -183,15 +187,23 @@ final class ListPrinter
     private function printHookStat(OutputPrinter $printer, HookStat $hookStat, $style)
     {
         $printer->writeln(
-            sprintf('    {+%s}%s{-%s} {+comment}# %s{-comment}',
-                $style, $hookStat->getName(), $style, $this->relativizePaths($hookStat->getPath())
+            sprintf(
+                '    {+%s}%s{-%s} {+comment}# %s{-comment}',
+                $style,
+                $hookStat->getName(),
+                $style,
+                $this->relativizePaths($hookStat->getPath())
             )
         );
 
-        $pad = function ($line) { return '      ' . $line; };
+        $pad = function ($line) {
+            return '      ' . $line;
+        };
 
         if (null !== $hookStat->getStdOut()) {
-            $padText = function ($line) { return '      │ ' . $line; };
+            $padText = function ($line) {
+                return '      │ ' . $line;
+            };
             $stdOutString = array_map($padText, explode("\n", $hookStat->getStdOut()));
             $printer->writeln(implode("\n", $stdOutString));
         }
@@ -217,7 +229,8 @@ final class ListPrinter
         $maxLength = max(mb_strlen($stat->getScenarioText(), 'utf8'), mb_strlen($stat->getStepText(), 'utf8') + 2) + 1;
 
         $printer->writeln(
-            sprintf('%03d {+%s}%s{-%s}%s{+comment}# %s{-comment}',
+            sprintf(
+                '%03d {+%s}%s{-%s}%s{+comment}# %s{-comment}',
                 $number,
                 $style,
                 $stat->getScenarioText(),
@@ -228,7 +241,8 @@ final class ListPrinter
         );
 
         $printer->writeln(
-            sprintf('      {+%s}%s{-%s}%s{+comment}# %s{-comment}',
+            sprintf(
+                '      {+%s}%s{-%s}%s{+comment}# %s{-comment}',
                 $style,
                 $stat->getStepText(),
                 $style,
@@ -237,10 +251,14 @@ final class ListPrinter
             )
         );
 
-        $pad = function ($line) { return '        ' . $line; };
+        $pad = function ($line) {
+            return '        ' . $line;
+        };
 
         if (null !== $stat->getStdOut()) {
-            $padText = function ($line) { return '        │ ' . $line; };
+            $padText = function ($line) {
+                return '        │ ' . $line;
+            };
             $stdOutString = array_map($padText, explode("\n", $stat->getStdOut()));
             $printer->writeln(implode("\n", $stdOutString));
         }

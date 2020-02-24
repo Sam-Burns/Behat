@@ -44,7 +44,7 @@ final class RerunController implements Controller
     /**
      * @var string[]
      */
-    private $lines = array();
+    private $lines = [];
     /**
      * @var string
      */
@@ -71,7 +71,10 @@ final class RerunController implements Controller
      */
     public function configure(Command $command)
     {
-        $command->addOption('--rerun', null, InputOption::VALUE_NONE,
+        $command->addOption(
+            '--rerun',
+            null,
+            InputOption::VALUE_NONE,
             'Re-run scenarios that failed during last execution.'
         );
     }
@@ -86,9 +89,9 @@ final class RerunController implements Controller
      */
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->eventDispatcher->addListener(ScenarioTested::AFTER, array($this, 'collectFailedScenario'), -50);
-        $this->eventDispatcher->addListener(ExampleTested::AFTER, array($this, 'collectFailedScenario'), -50);
-        $this->eventDispatcher->addListener(ExerciseCompleted::AFTER, array($this, 'writeCache'), -50);
+        $this->eventDispatcher->addListener(ScenarioTested::AFTER, [$this, 'collectFailedScenario'], -50);
+        $this->eventDispatcher->addListener(ExampleTested::AFTER, [$this, 'collectFailedScenario'], -50);
+        $this->eventDispatcher->addListener(ExerciseCompleted::AFTER, [$this, 'writeCache'], -50);
 
         $this->key = $this->generateKey($input);
 
@@ -155,7 +158,7 @@ final class RerunController implements Controller
     private function generateKey(InputInterface $input)
     {
         return md5(
-            $input->getParameterOption(array('--profile', '-p')) .
+            $input->getParameterOption(['--profile', '-p']) .
             $input->getOption('suite') .
             implode(' ', $input->getOption('name')) .
             implode(' ', $input->getOption('tags')) .

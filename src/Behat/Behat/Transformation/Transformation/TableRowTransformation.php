@@ -35,7 +35,7 @@ final class TableRowTransformation extends RuntimeCallee implements SimpleArgume
     /**
      * {@inheritdoc}
      */
-    static public function supportsPatternAndMethod($pattern, ReflectionMethod $method)
+    public static function supportsPatternAndMethod($pattern, ReflectionMethod $method)
     {
         return 1 === preg_match(self::PATTERN_REGEX, $pattern);
     }
@@ -71,13 +71,13 @@ final class TableRowTransformation extends RuntimeCallee implements SimpleArgume
      */
     public function transformArgument(CallCenter $callCenter, DefinitionCall $definitionCall, $argumentIndex, $argumentValue)
     {
-        $rows = array();
+        $rows = [];
         foreach ($argumentValue as $row) {
             $call = new TransformationCall(
                 $definitionCall->getEnvironment(),
                 $definitionCall->getCallee(),
                 $this,
-                array($row)
+                [$row]
             );
 
             $result = $callCenter->makeCall($call);

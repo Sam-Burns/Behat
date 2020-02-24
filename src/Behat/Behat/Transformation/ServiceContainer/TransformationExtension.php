@@ -104,7 +104,7 @@ class TransformationExtension implements Extension
     protected function loadDefinitionArgumentsTransformer(ContainerBuilder $container)
     {
         $definition = new Definition('Behat\Behat\Transformation\Call\Filter\DefinitionArgumentsTransformer');
-        $definition->addTag(CallExtension::CALL_FILTER_TAG, array('priority' => 200));
+        $definition->addTag(CallExtension::CALL_FILTER_TAG, ['priority' => 200]);
         $container->setDefinition($this->getDefinitionArgumentTransformerId(), $definition);
     }
 
@@ -115,13 +115,13 @@ class TransformationExtension implements Extension
      */
     protected function loadDefaultTransformers(ContainerBuilder $container)
     {
-        $definition = new Definition('Behat\Behat\Transformation\Transformer\RepositoryArgumentTransformer', array(
+        $definition = new Definition('Behat\Behat\Transformation\Transformer\RepositoryArgumentTransformer', [
             new Reference(self::REPOSITORY_ID),
             new Reference(CallExtension::CALL_CENTER_ID),
             new Reference(DefinitionExtension::PATTERN_TRANSFORMER_ID),
             new Reference(TranslatorExtension::TRANSLATOR_ID)
-        ));
-        $definition->addTag(self::ARGUMENT_TRANSFORMER_TAG, array('priority' => 50));
+        ]);
+        $definition->addTag(self::ARGUMENT_TRANSFORMER_TAG, ['priority' => 50]);
         $container->setDefinition(self::ARGUMENT_TRANSFORMER_TAG . '.repository', $definition);
     }
 
@@ -133,7 +133,7 @@ class TransformationExtension implements Extension
     protected function loadAnnotationReader(ContainerBuilder $container)
     {
         $definition = new Definition('Behat\Behat\Transformation\Context\Annotation\TransformationAnnotationReader');
-        $definition->addTag(ContextExtension::ANNOTATION_READER_TAG, array('priority' => 50));
+        $definition->addTag(ContextExtension::ANNOTATION_READER_TAG, ['priority' => 50]);
         $container->setDefinition(ContextExtension::ANNOTATION_READER_TAG . '.transformation', $definition);
     }
 
@@ -144,9 +144,9 @@ class TransformationExtension implements Extension
      */
     protected function loadRepository(ContainerBuilder $container)
     {
-        $definition = new Definition('Behat\Behat\Transformation\TransformationRepository', array(
+        $definition = new Definition('Behat\Behat\Transformation\TransformationRepository', [
             new Reference(EnvironmentExtension::MANAGER_ID)
-        ));
+        ]);
         $container->setDefinition(self::REPOSITORY_ID, $definition);
     }
 
@@ -161,7 +161,7 @@ class TransformationExtension implements Extension
         $definition = $container->getDefinition($this->getDefinitionArgumentTransformerId());
 
         foreach ($references as $reference) {
-            $definition->addMethodCall('registerArgumentTransformer', array($reference));
+            $definition->addMethodCall('registerArgumentTransformer', [$reference]);
         }
     }
 

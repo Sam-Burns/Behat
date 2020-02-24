@@ -43,7 +43,7 @@ final class FilesystemRerunScenariosListLocator implements SpecificationLocator
      */
     public function getLocatorExamples()
     {
-        return array();
+        return [];
     }
 
     /**

@@ -17,7 +17,7 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
-$identifyEventDispatcherClassVersion = function() {
+$identifyEventDispatcherClassVersion = function () {
     $reflection  = new \ReflectionClass(\Symfony\Component\EventDispatcher\EventDispatcher::class);
     $dispatch    = $reflection->getMethod('dispatch');
 
@@ -61,5 +61,4 @@ if (false) {
         const AFTER_ALL_EVENTS = '~*';
         const DISPATCHER_VERSION = 'undefined';
     }
-
 }
